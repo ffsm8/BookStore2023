@@ -1,0 +1,12 @@
+﻿using BookStore.Models.Models.Users;
+
+namespace BookStore.BL.Interfaces
+{
+    public interface IBookService
+    {
+        List<Book> GetAll();
+        Book GetById(int id);
+        void Add(Book book);
+        void Remove(int id);
+    }
+}
