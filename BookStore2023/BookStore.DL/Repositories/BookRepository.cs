@@ -1,27 +1,57 @@
-﻿using BookStore.DL.Interfaces;
-using BookStore.DL.MemoryDB;
-using BookStore.Models.Models.Users;
+﻿using BookStore.DL.InMemoryDb;
+using BookStore.DL.Interfaces;
+using BookStore.Models.Models;
 
 namespace BookStore.DL.Repositories
 {
     public class BookRepository : IBookRepository
     {
-        public void Add(Book book)
+        public void AddBook(Book book)
         {
-            InMemoryDB.BookData.Add(book);
+            StaticData.Books.Add(book);
         }
-        public List<Book> GetAll()
+
+        public void DeleteBook(int id)
         {
-            return InMemoryDB.BookData;
+            var book =
+                StaticData.Books
+                    .FirstOrDefault(b => b.Id == id);
+
+            if (book == null) return;
+
+            StaticData.Books.Remove(book);
         }
-        public Book GetByID(int id)
+
+        public void UpdateBook(Book book)
         {
-            return InMemoryDB.BookData.First(a => a.Id == id);
+            var existingBook =
+                StaticData.Books
+                    .FirstOrDefault(b => b.Id == book.Id);
+
+            if (existingBook == null) return;
+
+            existingBook.Title = book.Title;
         }
-        public void Remove(int id)
+
+        public Book? GetBook(int id)
         {
-            var book = GetByID(id);
-            InMemoryDB.BookData.Remove(book);
+            return
+                StaticData.Books
+                    .FirstOrDefault(b => b.Id == id);
+        }
+
+        public List<Book> GetAllBooks()
+        {
+            return StaticData.Books;
+        }
+
+        public List<Book> GetAllBooksByAuthorId(int id)
+        {
+            var result =
+                StaticData.Books.Where(b => b.AuthorId == id)
+                    .ToList();
+
+            return result;
         }
     }
 }

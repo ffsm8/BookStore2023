@@ -1,28 +1,21 @@
 ﻿using BookStore.BL.Interfaces;
-using BookStore.Models.Models.Users;
+using BookStore.Models.Models;
+using BookStore.DL.Interfaces;
 
 namespace BookStore.BL.Services
 {
     public class BookService : IBookService
     {
-        public void Add(Book book)
+        private readonly IBookRepository _bookRepository;
+
+        public BookService(IBookRepository bookRepository)
         {
-            throw new NotImplementedException();
+            _bookRepository = bookRepository;
         }
 
-        public List<Book> GetAll()
+        public List<Book> GetAllBooksByAuthorId(int authorId)
         {
-            throw new NotImplementedException();
-        }
-
-        public Book GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Remove(int id)
-        {
-            throw new NotImplementedException();
+            return _bookRepository.GetAllBooksByAuthorId(authorId);
         }
     }
 }

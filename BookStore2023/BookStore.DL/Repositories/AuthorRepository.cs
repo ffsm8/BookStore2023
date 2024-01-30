@@ -1,29 +1,30 @@
 ﻿using BookStore.DL.Interfaces;
-using BookStore.DL.MemoryDB;
 using BookStore.Models.Models.Users;
 
 namespace BookStore.DL.Repositories
 {
     public class AuthorRepository : IAuthorRepository
     {
-        public void Add(Author author)
-        {
-            InMemoryDB.AuthorsData.Add(author);
-        }
-
         public List<Author> GetAll()
         {
-            return InMemoryDB.AuthorsData;
+            return InMemoryDb.StaticData.AuthorsData;
         }
-        public Author GetByID(int id)
+
+        public Author GetById(int id)
         {
-            return InMemoryDB.AuthorsData.First(a=>a.Id == id);
+            return InMemoryDb.StaticData.AuthorsData
+                .First(a => a.Id == id);
+        }
+
+        public void Add(Author author)
+        {
+            InMemoryDb.StaticData.AuthorsData.Add(author);
         }
 
         public void Remove(int id)
         {
-                var author = GetByID(id);
-                InMemoryDB.AuthorsData.Remove(author);
+            var author = GetById(id);
+            InMemoryDb.StaticData.AuthorsData.Remove(author);
         }
     }
 }
