@@ -1,5 +1,5 @@
 ﻿using BookStore.BL.Interfaces;
-using BookStore.Models.Request;
+using BookStore.Models.Requests;
 using BookStore.Models.Responses;
 
 namespace BookStore.BL.Services
@@ -17,26 +17,30 @@ namespace BookStore.BL.Services
             _bookService = bookService;
         }
 
-        public GetBooksByAuthorResponse? GetBooksByAuthor(GetBooksByAuthorRequest request)
+        public int CheckBookCount(int input)
         {
-            var books = _bookService.
-                GetAllBooksByAuthorId(request.AuthorId);
+            if (input < 0) return 0;
 
-            if (books.Count > 0)
+            var bookCount = _bookService.GetAll();
+
+            return bookCount.Count + input;
+        }
+
+        public GetAllBooksByAuthorResponse?
+            GetAllBooksByAuthorAfterReleaseDate(
+                GetAllBooksByAuthorRequest request)
+        {
+            var response = new GetAllBooksByAuthorResponse
             {
-                var response = new GetBooksByAuthorResponse
-                {
-                    Author = _authorService.
-                        GetById(request.AuthorId),
-                    Books = books.
-                        Where(b =>
-                            b.ReleaseDate >= request.AfterDate).ToList()
-                };
+                Author = _authorService
+                    .GetById(request.AuthorId),
+                Books = _bookService
+                    .GetAllByAuthorAfterReleaseDate(
+                        request.AuthorId,
+                        request.DateAfter)
+            };
 
-                return response;
-            }
-
-            return null;
+            return response;
         }
     }
 }

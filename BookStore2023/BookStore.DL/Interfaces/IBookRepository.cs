@@ -1,19 +1,18 @@
 ﻿using BookStore.Models.Models;
+using BookStore.Models.Models.Users;
 
 namespace BookStore.DL.Interfaces
 {
     public interface IBookRepository
     {
-        public void AddBook(Book book);
+        List<Book> GetAll();
 
-        public void DeleteBook(int id);
+        Book GetById(int id);
 
-        public void UpdateBook(Book book);
+        void Add(Book book);
 
-        public Book? GetBook(int id);
+        void Remove(int id);
 
-        public List<Book> GetAllBooks();
-
-        public List<Book> GetAllBooksByAuthorId(int id);
+        List<Book> GetAllBooksByAuthorId(int authorId);
     }
 }

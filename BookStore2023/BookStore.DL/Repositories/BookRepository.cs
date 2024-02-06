@@ -53,5 +53,25 @@ namespace BookStore.DL.Repositories
 
             return result;
         }
+
+        public List<Book> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Book GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Add(Book book)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

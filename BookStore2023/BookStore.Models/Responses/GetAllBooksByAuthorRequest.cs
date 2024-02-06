@@ -3,7 +3,7 @@ using BookStore.Models.Models.Users;
 
 namespace BookStore.Models.Responses
 {
-    public class GetBooksByAuthorResponse
+    public class GetAllBooksByAuthorResponse
     {
         public Author Author { get; set; }
 

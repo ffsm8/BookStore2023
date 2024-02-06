@@ -1,8 +1,8 @@
 ﻿using BookStore.BL.Interfaces;
-using BookStore.Models.Models;
-using BookStore.Models.Request;
+using BookStore.Models.Requests;
 using BookStore.Models.Responses;
 using BookStore.Validators;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.Controllers
@@ -18,21 +18,13 @@ namespace BookStore.Controllers
             _libraryService = libraryService;
         }
 
-        [HttpPost("GetBooksByAuthor")]
-        public GetBooksByAuthorResponse?
-            GetBooksByAuthor(GetBooksByAuthorRequest? request)
+        [HttpPost("GetAllBooksByAuthorAndDate")]
+        public GetAllBooksByAuthorResponse?
+            GetAllBooksByAuthorAndDate([FromBody]
+                GetAllBooksByAuthorRequest request)
         {
-            if (request == null) return null;
-
-            return _libraryService.GetBooksByAuthor(request);
+            return _libraryService
+                .GetAllBooksByAuthorAfterReleaseDate(request);
         }
-
-        [HttpPost("TestEndpoint")]
-        public string GetTestEndpoint(
-            [FromBody] TestRequest request)
-        {
-            return "Test OK";
-        }
-
     }
 }

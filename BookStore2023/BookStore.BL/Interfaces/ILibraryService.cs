@@ -1,11 +1,14 @@
-﻿using BookStore.Models.Request;
+﻿using BookStore.Models.Requests;
 using BookStore.Models.Responses;
 
 namespace BookStore.BL.Interfaces
 {
     public interface ILibraryService
     {
-        GetBooksByAuthorResponse?
-            GetBooksByAuthor(GetBooksByAuthorRequest request);
+        GetAllBooksByAuthorResponse?
+            GetAllBooksByAuthorAfterReleaseDate(
+                GetAllBooksByAuthorRequest request);
+
+        int CheckBookCount(int input);
     }
 }

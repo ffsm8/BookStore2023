@@ -1,6 +1,6 @@
 ﻿using BookStore.BL.Interfaces;
-using BookStore.Models.Models;
 using BookStore.DL.Interfaces;
+using BookStore.Models.Models;
 
 namespace BookStore.BL.Services
 {
@@ -16,6 +16,42 @@ namespace BookStore.BL.Services
         public List<Book> GetAllBooksByAuthorId(int authorId)
         {
             return _bookRepository.GetAllBooksByAuthorId(authorId);
+        }
+
+        public int TestCalculation(int number)
+        {
+            var books=_bookRepository.GetAll();
+            return books.Count+number;
+        }
+        public int remove(int number)
+        {
+            var books = _bookRepository.GetAll();
+            return books.Count - number;
+        }
+
+        public List<Book> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Book GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Add(Book book)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Book> GetAllByAuthorAfterReleaseDate(int authorId, DateTime afterDate)
+        {
+            throw new NotImplementedException();
         }
     }
 }

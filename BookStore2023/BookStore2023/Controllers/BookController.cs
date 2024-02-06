@@ -1,35 +1,43 @@
-﻿using BookStore.DL.Interfaces;
+﻿using BookStore.BL.Interfaces;
 using BookStore.Models.Models;
 using BookStore.Models.Models.Users;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("[controller]")]
     public class BookController : ControllerBase
     {
-        private readonly IBookRepository _bookRepository;
+        private readonly IBookService _bookService;
 
-        public BookController(IBookRepository bookRepository)
+        public BookController(IBookService bookService)
         {
-            _bookRepository = bookRepository;
+            _bookService = bookService;
         }
 
-        [HttpGet]
-        public Book? Get(int id)
+        [HttpGet("GetAll")]
+        public List<Book> GetAll()
         {
-            if (id < 0) return null;
+            return _bookService.GetAll();
+        }
 
-            return _bookRepository.GetBook(id);
+        [HttpGet("GetById")]
+        public Book GetById(int id)
+        {
+            return _bookService.GetById(id);
         }
 
         [HttpPost("Add")]
         public void Add([FromBody] Book book)
         {
-            if (book == null) return;
+            _bookService.Add(book);
+        }
 
-            _bookRepository.AddBook(book);
+        [HttpDelete("Delete")]
+        public void Delete(int id)
+        {
+            _bookService.Remove(id);
         }
     }
 }

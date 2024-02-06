@@ -40,8 +40,8 @@ namespace BookStore
                 .AddSingleton<IBookRepository, BookRepository>();
 
             builder.Services.AddHealthChecks()
-                .AddCheck<CustomHealthCheck>(nameof(CustomHealthCheck))
-                .AddUrlGroup(new Uri("https://google.bg"), name: "My Service");
+                .AddCheck<CustomHealthCheck>(nameof(CustomHealthCheck));
+               // .AddUrlGroup(new Uri("https://google.bg"), name: "My Service");
 
             var app = builder.Build();
 
